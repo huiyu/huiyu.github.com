@@ -1,0 +1,35 @@
+---
+layout: page
+---
+
+{% for tag in site.tags %}
+    {% assign tag_name = tag[0] %}
+    {% assign size = tag[1].size %}
+    <div id="{{ tag_name }}" style="display:none">
+    <h2>{{ tag_name }}</h2>
+    {% for post in tag[1] %}
+    <p>
+        <span class="text-muted" style="width:100px;"><small>{{ post.date | date: "%b %d %Y" }}</small></span>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
+    </p>
+    {% endfor %}
+    </div>
+
+{% endfor %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var query = window.location.search.substring(1);
+        var tokens = query.split("&");
+        var tagName;
+        for (var i = 0; i < tokens.length; i++) {
+            var tokens2 = tokens[i].split("=");
+            if (tokens2[0] == "name") {
+                tagName = tokens2[1];
+            }
+        }
+        var id = decodeURIComponent(tagName);
+        document.getElementById(id).style.display = "inline";
+    });
+</script>

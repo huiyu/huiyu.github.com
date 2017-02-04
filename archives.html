@@ -1,0 +1,17 @@
+---
+layout: page
+---
+
+{% for post in site.posts %}
+{% assign post_year = post.date | date: "%Y" %}
+{% assign newer_year = post.next.date | date: "%Y" %}
+{% if post_year != newer_year %}
+<h2>
+    {{ post_year }}
+</h2>
+{% endif %}
+<p>
+    <span class="text-muted" style="width:70px"><small>{{ post.date | date: "%b %d" }}</small></span>
+    <a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
+</p>
+{% endfor %}
