@@ -18,9 +18,10 @@ CompletableFuture.supplyAsync(this::downloadImage);
 工厂方法`supplyAsync`接收一个函数式对象`Supplier`作为参数，包含了想要异步执行的代码。默认情况下，`supplyAsync`会将`Supplier`运行在`ForkJoinPool.commonPool()`中。此外`supplyAsync`还有一个重载版本接受额外的`Executor`对象作为`supplier`的运行容器。
 
 除了`supplyAsync`外，还有以下几种方式创建`CompletableFuture`：
-1. 工厂方法`runAsync`接受一个`Runnable`对象以及一个可选的`Executor`对象，用于执行无需返回值的计算作业
-2. CompletableFuture的无参构造器，返回一个处于未完成的CompletableFuture对象，该对象需要手动完成，否则将永远处于未完成状态
-3. 工厂方法`completedFuture`直接将执行结果包装成一个处于完成状态的CompletableFuture对象
+
+* 工厂方法`runAsync`接受一个`Runnable`对象以及一个可选的`Executor`对象，用于执行无需返回值的计算作业
+* CompletableFuture的无参构造器，返回一个处于未完成的CompletableFuture对象，该对象需要手动完成，否则将永远处于未完成状态
+* 工厂方法`completedFuture`直接将执行结果包装成一个处于完成状态的CompletableFuture对象
 
 ## 获取结果
 
