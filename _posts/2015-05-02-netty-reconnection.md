@@ -18,23 +18,18 @@ Netty基本的编程框架不再赘述，来看以下代码：
 ```java
 public void connect() {
     try {
-        ChannelFuture future = bootstrap.connect(hostname, port).addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                if (!future.isSuccess()) {
-                    doReconnect();
-                }
-            }
-        }).sync();
-
-        future.channel().closeFuture().addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
+      ChannelFuture future = bootstrap
+          .connect(hostname, port)
+          .addListener((ChannelFutureListener) future12 -> {
+            if (!future12.isSuccess()) {
                 doReconnect();
             }
-        });
+          }).sync();
+    future.channel()
+          .closeFuture()
+          .addListener((ChannelFutureListener) future1 -> doReconnect());
     } catch (Exception e) {
-        System.err.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
 }
 ```
@@ -44,7 +39,8 @@ public void connect() {
 由于这里建立连接和失去连接是两种状态，因此就对应两个`ChannelFuture`，我们分别向其注册`ChannelFutureListener`，第一个`Listener`在操作失败，也就是建立连接失败时执行重连；第二个`Listener`注册至`closeFuture`，也就是关闭连接状态触发时执行重连。
 
 ```java
-private synchronized void doReconnect() throws InterruptedException {
+private synchronized void doReconnect()
+        throws InterruptedException {
     Thread.sleep(1000L);
     connect();
 }
@@ -55,20 +51,22 @@ private synchronized void doReconnect() throws InterruptedException {
 对于失去连接状态的重连处理，也可以使用ChannelHandler处理：
 
 ```java
-bootstrap = new Bootstrap().group(workerGroup)
-                           .channel(NioSocketChannel.class)
-                           .handler(new ChannelInitializer<SocketChannel>() {
-                               @Override
-                               protected void initChannel(SocketChannel channel) throws Exception {
-                                   ChannelPipeline pipeline = channel.pipeline();
-                                   pipeline.addFirst(new ChannelInboundHandlerAdapter() {
-                                       @Override
-                                       public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-                                           doReconnect();
-                                       }
-                                   });
-                               }
-                           });
+bootstrap = new Bootstrap()
+    .group(workerGroup)
+    .channel(NioSocketChannel.class)
+    .handler(new ChannelInitializer<SocketChannel>() {
+       @Override
+       protected void initChannel(SocketChannel channel) throws Exception {
+           ChannelPipeline pipeline = channel.pipeline();
+           pipeline.addFirst(new ChannelInboundHandlerAdapter() {
+               @Override
+               public void channelInactive(ChannelHandlerContext ctx)
+                    throws Exception {
+                   doReconnect();
+               }
+           });
+       }
+   });
 ```
 
 这样的效果和`closeFuture().addListner()`是一样的。
