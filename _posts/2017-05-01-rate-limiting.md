@@ -18,7 +18,7 @@ Leaky Bucket是限制流量的很朴素的算法，实现算法只需要给定�
 
 实际应用中有很多变化，主要在于漏水的速率以及桶的的大小，以及处理异常流量的策略。
 
-<img src="{{site.baseurl}}/images/leaky-bucket.jpg" alt="Leaky Bucket" style="height:300px;"/>
+<img src="{{site.baseurl}}/images/rate-limiting/leaky-bucket.jpg" alt="Leaky Bucket" style="height:300px;"/>
 
 ## Token Bucket算法
 
@@ -29,7 +29,7 @@ Token bucket算法也很简单，相当于leaky bucket的镜像算法：
 - 当n字节请求到达时，那么就从桶内删除n个令牌，并对请求放行。
 - 当n字节请求到达，但桶内不足n个令牌，那么该请求将会被限制。
 
-<img src="{{site.baseurl}}/images/token-bucket.jpg" alt="Token Bucket" style="height:256px;"/>
+<img src="{{site.baseurl}}/images/rate-limiting/token-bucket.jpg" alt="Token Bucket" style="height:256px;"/>
 
 Leaky bucket和token bucket算法都能实现速度控制的功能，但是两者有点区别。Leaky bucket强制限制数据的传输速率，而token bucket允许某种程度的突发传输。
 
@@ -68,7 +68,7 @@ now + (n / permitsPerSeconds)
 
 这里以aquire为例，分析一下其调用链。如下图所示，acquire首先调用reserve方法预约permit并计算所需等待时间，然后执行等待后返回等待时间。`reserve`方法则将具体计算委托给`SmoothRateLimiter`类的`reserveEarliestAvailable`方法。
 
-![RateLimiter Acquire Call Chain]({{site.baseurl}}/images/ratelimiter-call-chain.png)
+![RateLimiter Acquire Call Chain]({{site.baseurl}}/images/rate-limiting/ratelimiter-call-chain.png)
 
 再来看`reserveEarliestAvailable`方法的实现：
 

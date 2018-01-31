@@ -23,7 +23,7 @@ $$
 
 
 
-![Sigmoid Function]({{ site.baseurl }}/images/sigmoid-function.png)
+![Sigmoid Function]({{ site.baseurl }}/images/logistic-regression/sigmoid-function.png)
 
 
 

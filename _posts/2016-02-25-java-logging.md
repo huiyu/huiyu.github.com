@@ -27,7 +27,7 @@ tags: [Java, 日志, Facade]
 
 SLF4J不依赖于特定的类加载机制，因此没有遭受类加载问题或者Apache Commons Logging (JCL)观察到的内存泄露问题。事实上，每个SLF4J绑定在编译时硬连接来使用一个指定的日志框架。比如说， slf4j-log4j12-1.7.19.jar在编译时绑定使用log4j。在你的代码中，除  slf4j-api-1.7.19.jar之外，只能有一个你选择的绑定 到正确的class path 路径上。不要在class path 放置多个绑定。下面是一个说明图表：
 
-![concrete-bindings.png]({{ site.baseurl | append: "/images/slf4j-bridging.png"}})
+![concrete-bindings.png]({{ site.baseurl | append: "/images/java/logging/slf4j-bridging.png"}})
 
 * 如果在classpath中没有发现具体的绑定，SLF4J将默认一个无操作的实现（输出到/dev/null）。
 * slf4j-nop.jar：也是将日志全部输出到/dev/null，区别是没有警告信息。
@@ -45,7 +45,7 @@ SLF4J不依赖于特定的类加载机制，因此没有遭受类加载问题或
 
 slf4j还提供了另外一类的桥接器，将具体日志框架的API转调到slf4j的api上，sl4j称之为[Bridging legacy APIs](https://www.slf4j.org/legacy.html)，作用主要是为了处理一些遗留代码。
 
-![legacy.png]({{ site.baseurl | append: "/images/slf4j-bridging-legacy.png" }})
+![legacy.png]({{ site.baseurl | append: "/images/java-logging/slf4j-bridging-legacy.png" }})
 
 上图是slf4j提供的三种能从别的日志框架API转回slf4j的三种情形。以左上角的第一种情形为例，当slf4j底层桥接到logback框架的时候，上层允许log4j和jul两种具体日志框架反向桥接回slf4j。还有jcl虽然不是什么日志框架的具体实现，但是它的API仍然是能够被转调回slf4j的。要想实现转调，方法就是图上列出的用特定的桥接器jar**替换**掉原有的日志框架jar。
 

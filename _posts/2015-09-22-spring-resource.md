@@ -43,7 +43,7 @@ public interface InputStreamSource {
 
 ## 内置Resource实现
 
-![Spring Resource UML]({{ site.baseurl | append: "/images/spring-resource-uml.png" }})
+![Spring Resource UML]({{ site.baseurl | append: "/images/spring-resource/spring-resource-uml.png" }})
 
 常用实现类如下：
 
@@ -62,13 +62,13 @@ public interface InputStreamSource {
 
 ### 资源地址表达式
 
-| 地址前缀         | 示例                                | 对应的资源类型                                  |
-| ------------ | ---------------------------------     | ---------------------------------------- |
-| classpath: |  classpath:com/myapp/config.xml     | 使用ClassPathResource从classpath加载。     |
-| file:      | file:///data/config.xml             | 使用UrlResource从文件系统加载。                  |
-| http://    |  http://myserver/logo.png           | 使用UrlResource加载。                       |
-| ftp://     | ftp://myserver/file                 | 使用UrlResource加载。                       |
-| 没有前缀      | /data/config.xml                     | 根据使用的ApplicationContext决定，如使用 ClassPathXmlApplicationContext则返回 ClassPathResource实例；如使用 FileSystemXmlApplicationContext则是 FileSystemResource；如 WebApplicationContext则是 ServletContextResource。 |
+| 地址前缀       | 示例                             | 对应的资源类型                                  |
+| ---------- | ------------------------------ | ---------------------------------------- |
+| classpath: | classpath:com/myapp/config.xml | 使用ClassPathResource从classpath加载。         |
+| file:      | file:///data/config.xml        | 使用UrlResource从文件系统加载。                    |
+| http://    | http://myserver/logo.png       | 使用UrlResource加载。                         |
+| ftp://     | ftp://myserver/file            | 使用UrlResource加载。                         |
+| 没有前缀       | /data/config.xml               | 根据使用的ApplicationContext决定，如使用 ClassPathXmlApplicationContext则返回 ClassPathResource实例；如使用 FileSystemXmlApplicationContext则是 FileSystemResource；如 WebApplicationContext则是 ServletContextResource。 |
 
 和`classpath:`的类似的有一个`classpath*:`变体，两者的区别是前者只会在第一个加载的`com.myapp`包下搜索，而后者会扫描所有类路径下出现的`com.myqpp`包。
 
@@ -91,7 +91,7 @@ classpath:com/mycompany/**/applicationContext.xml
 
 Spring定义了一套资源加载的接口和实现：
 
-![Spring ResourceLoader UML]({{ site.baseurl | append: "/images/spring-resourceloader-uml.png" }})
+![Spring ResourceLoader UML]({{ site.baseurl | append: "/images/spring-resource/spring-resourceloader-uml.png" }})
 
 - `ResourceLoader`：仅有一个`getResource`方法，**不支持Ant风格通配符**。
 - `ResourcePatternResolver`：定义了`getResources`方法，支持Ant通配符。
