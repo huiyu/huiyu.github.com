@@ -154,7 +154,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<HttpRequest> {
 
 ### 共享ChannelHandler
 
-如果ChannelHandler是无状态的，那么可以设置为Sharable的（通过`@ChannelHandler.Shareable`注解），这样可以减少对象数量。
+如果ChannelHandler是无状态的，那么可以设置为Shareable的（通过`@ChannelHandler.Shareable`注解），这样可以减少对象数量。
 
 ### 避免直接调用Channel的write方法
 
