@@ -1,8 +1,8 @@
 # Site settings
-title:       JeffreYu
+title:       "Yu Hui's Tech Blog"
 email:       huiyu219@gmail.com
 author:      Hui Yu
-description: "Hui Yu's personal blog."
+description: "Yu Hui's tech blog."
 baseurl:     ""
 url:         "http://huiyu.github.io"
 
@@ -23,7 +23,7 @@ social:
   github: huiyu
   stackoverflow:
   twitter:
-  google_lus:
+  google_plus:
   linkedin:
   paypal:
 
